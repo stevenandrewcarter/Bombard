@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bombard", "Bombard\Bombard.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BombardEngine", "BombardEngine\BombardEngine.csproj", "{E199C9F5-9C8F-48FB-BC80-F2B254D838EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearMaths", "..\Libraries\LinearMaths\LinearMaths.csproj", "{C4EC975A-F8D9-45FB-9BE1-39D28C74A5B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearMaths", "LinearMaths\LinearMaths.csproj", "{C4EC975A-F8D9-45FB-9BE1-39D28C74A5B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewSpace", "..\Libraries\ViewSpace\ViewSpace.csproj", "{83ADED90-1A93-4253-91FE-C1A227758E05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewSpace", "ViewSpace\ViewSpace.csproj", "{83ADED90-1A93-4253-91FE-C1A227758E05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
