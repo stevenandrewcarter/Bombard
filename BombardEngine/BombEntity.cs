@@ -1,12 +1,8 @@
 ﻿using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
-using System;
-using System.Collections.Generic;
 
-namespace BombardEngine
-{
-  internal abstract class BombEntity
-  {
+namespace BombardEngine {
+  internal abstract class BombEntity {
     protected BaseTexture texture;
     protected System.Drawing.RectangleF bounds;
     protected CustomVertex.PositionColoredTextured[] vertices;

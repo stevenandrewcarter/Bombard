@@ -1,22 +1,16 @@
-﻿using LinearMaths;
-using System;
+﻿using System.Drawing;
 using Microsoft.DirectX;
-using Microsoft.DirectX.Direct3D;
-using System.Drawing;
 
-namespace BombardEngine
-{
-  public class Camera
-  {    
+namespace BombardEngine {
+  public class Camera {
     private RectangleF bounds;
 
     private Vector3 right;
     private Vector3 up;
     private Vector3 look;
     private Vector3 pos;
-    
-    public Camera(Vector3 cameraPosition, Vector3 cameraLook, Vector3 cameraUp, Vector3 cameraRight, RectangleF newBounds)
-    {
+
+    public Camera(Vector3 cameraPosition, Vector3 cameraLook, Vector3 cameraUp, Vector3 cameraRight, RectangleF newBounds) {
       pos = cameraPosition;
       look = cameraLook;
       up = cameraUp;
@@ -25,25 +19,21 @@ namespace BombardEngine
     }
 
     #region Properties
-   
-    public Vector3 Position
-    {
+
+    public Vector3 Position {
       get { return pos; }
       set { pos = value; }
     }
 
-    public Vector3 Right
-    {
+    public Vector3 Right {
       get { return right; }
     }
 
-    public Vector3 Up
-    {
+    public Vector3 Up {
       get { return up; }
     }
 
-    public Vector3 Look
-    {
+    public Vector3 Look {
       get { return look; }
     }
 
@@ -114,15 +104,14 @@ namespace BombardEngine
     /// 
     /// </summary>
     /// <param name="V"></param>
-    public void GetViewMatrix(ref Matrix V)
-    {
+    public void GetViewMatrix(ref Matrix V) {
       // Keep camera's axes orthogonal to each other:
       look.Normalize();
       up = Vector3.Cross(look, right);
       up.Normalize();
       right = Vector3.Cross(up, look);
       right.Normalize();
-      
+
       // Build the view matrix:
       float x = -Vector3.Dot(right, pos);
       float y = -Vector3.Dot(up, pos);
@@ -145,13 +134,12 @@ namespace BombardEngine
       V.M43 = z;
       V.M44 = 1.0f;
     }
-    
+
     /// <summary>
     /// left/right
     /// </summary>
     /// <param name="units"></param>
-    public void Strafe(float units)
-    {
+    public void Strafe(float units) {
       // if (_cameraType == LANDOBJECT)
       pos += new Vector3(right.X, 0.0f, right.Z) * units;
       if (pos.X < bounds.X)
@@ -166,8 +154,7 @@ namespace BombardEngine
     /// up/down
     /// </summary>
     /// <param name="units"></param>
-    public void Fly(float units)
-    {
+    public void Fly(float units) {
       // if (_cameraType == AIRCRAFT)
       pos += up * units;
       if (pos.Y < bounds.Y)
@@ -180,20 +167,18 @@ namespace BombardEngine
     /// forward/backward
     /// </summary>
     /// <param name="units"></param>
-    public void Walk(float units)
-    {
+    public void Walk(float units) {
       pos += new Vector3(look.X, 0.0f, look.Z) * units;
       // if( _cameraType == AIRCRAFT )
       //  _pos += _look * units;
-    } 
+    }
 
     /// <summary>
     /// rotate on right vector
     /// </summary>
     /// <param name="angle"></param>
-    public void Pitch(float angle)
-    {
-      Matrix T = Matrix.RotationAxis(right, angle);      
+    public void Pitch(float angle) {
+      Matrix T = Matrix.RotationAxis(right, angle);
       // rotate _up and _look around _right vector
       up = Vector3.TransformCoordinate(up, T);
       look = Vector3.TransformCoordinate(look, T);
@@ -203,8 +188,7 @@ namespace BombardEngine
     /// rotate on up vector
     /// </summary>
     /// <param name="angle"></param>
-    public void Yaw(float angle)
-    {
+    public void Yaw(float angle) {
       Matrix T = Matrix.RotationAxis(up, angle);
       // rotate around world y (0, 1, 0) always for land object
       //if (_cameraType == LANDOBJECT)
@@ -221,15 +205,14 @@ namespace BombardEngine
     /// Rotate on look vector
     /// </summary>
     /// <param name="angle"></param>
-    public void Roll(float angle)
-    {
+    public void Roll(float angle) {
       // only roll for aircraft type
       //if (_cameraType == AIRCRAFT)
       //{
-        Matrix T = Matrix.RotationAxis(look, angle);        
-        // rotate _up and _right around _look vector
-        right = Vector3.TransformCoordinate(right, T);
-        up = Vector3.TransformCoordinate(up, T);
+      Matrix T = Matrix.RotationAxis(look, angle);
+      // rotate _up and _right around _look vector
+      right = Vector3.TransformCoordinate(right, T);
+      up = Vector3.TransformCoordinate(up, T);
       //}
     }
   }

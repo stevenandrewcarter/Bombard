@@ -1,7 +1,5 @@
-namespace Bombard
-{
-  partial class FrmBombardMain
-  {
+namespace Bombard {
+  partial class FrmBombardMain {
     /// <summary>
     /// Required designer variable.
     /// </summary>
@@ -11,10 +9,8 @@ namespace Bombard
     /// Clean up any resources being used.
     /// </summary>
     /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    protected override void Dispose(bool disposing)
-    {
-      if (disposing && (components != null))
-      {
+    protected override void Dispose(bool disposing) {
+      if (disposing && (components != null)) {
         engine.CancelAsync();
         engine.Dispose();
         components.Dispose();
@@ -28,8 +24,7 @@ namespace Bombard
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
     /// </summary>
-    private void InitializeComponent()
-    {
+    private void InitializeComponent() {
       this.SuspendLayout();
       // 
       // FrmBombardMain

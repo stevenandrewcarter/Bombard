@@ -1,13 +1,10 @@
-﻿using Microsoft.DirectX;
+﻿using System;
+using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
-using System;
 
-namespace BombardEngine.World
-{
-  internal class SkyBox : BombEntity
-  {
-    public override void Generate(ref Device device)
-    {
+namespace BombardEngine.World {
+  internal class SkyBox : BombEntity {
+    public override void Generate(ref Device device) {
       bounds = new System.Drawing.RectangleF(-30.0f, 0.0f, 60.0f, 30.0f);
       texture = Microsoft.DirectX.Direct3D.TextureLoader.FromFile(
                 device,
@@ -41,21 +38,18 @@ namespace BombardEngine.World
       vertices[3].Tu = 1.0f; vertices[3].Tv = 1.0f;
     }
 
-    public override void Draw(ref Device device)
-    {      
+    public override void Draw(ref Device device) {
       device.SetTexture(0, texture);
-      device.VertexFormat = CustomVertex.PositionColoredTextured.Format;      
+      device.VertexFormat = CustomVertex.PositionColoredTextured.Format;
       device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, vertices);
     }
 
-    public override void Translate(Vector3 v)
-    {
+    public override void Translate(Vector3 v) {
       throw new NotImplementedException();
     }
 
-    public override void Transform(Vector3 v)
-    {
-      
+    public override void Transform(Vector3 v) {
+
       throw new NotImplementedException();
     }
   }

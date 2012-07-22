@@ -1,15 +1,12 @@
-using Microsoft.DirectX;
-using Microsoft.DirectX.Direct3D;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using BombardEngine.World;
-using LinearMaths;
+using Microsoft.DirectX;
+using Microsoft.DirectX.Direct3D;
 
-namespace BombardEngine
-{
-  public class Engine : BackgroundWorker
-  {   
+namespace BombardEngine {
+  public class Engine : BackgroundWorker {
     // DirectX device
     private Device device;
     // Camera class
@@ -25,9 +22,8 @@ namespace BombardEngine
     private bool rightMouse;
 
     private Microsoft.DirectX.Direct3D.Font font = null;
-    
-    public Engine(Size viewPort, IntPtr deviceHandle)
-    {
+
+    public Engine(Size viewPort, IntPtr deviceHandle) {
       device = null;
       viewingArea = viewPort;
       handle = deviceHandle;
@@ -45,8 +41,7 @@ namespace BombardEngine
 
     #region Properties
 
-    public Device Device
-    {
+    public Device Device {
       get { return device; }
     }
 
@@ -54,16 +49,14 @@ namespace BombardEngine
 
     #region Protected Methods
 
-    protected override void OnDoWork(DoWorkEventArgs e)
-    {
-      while (!CancellationPending)
-      {
+    protected override void OnDoWork(DoWorkEventArgs e) {
+      while (!CancellationPending) {
         device.Clear(ClearFlags.Target, System.Drawing.Color.CornflowerBlue, 1.0f, 0);
         // Setup the camera
         Matrix V = new Matrix();
         camera.GetViewMatrix(ref V);
         device.SetTransform(TransformType.View, V);
-        device.BeginScene();        
+        device.BeginScene();
         // Draw the world        
         world.Draw(ref device);
         // Draw the GUI
@@ -82,8 +75,7 @@ namespace BombardEngine
     /// <summary>
     /// We will initialize our graphics device here
     /// </summary>
-    private void InitializeGraphics()
-    {
+    private void InitializeGraphics() {
       // Set our presentation parameters
       PresentParameters presentParams = new PresentParameters();
 
@@ -98,55 +90,47 @@ namespace BombardEngine
       InitializeGUI();
     }
 
-    private void InitializeGUI()
-    {
+    private void InitializeGUI() {
       System.Drawing.Font localFont = new System.Drawing.Font("Arial", 8.0f, FontStyle.Regular);
-      
+
       // Create a font we can draw with
       font = new Microsoft.DirectX.Direct3D.Font(device, localFont);
     }
 
-    private void DrawGUI()
-    {
+    private void DrawGUI() {
       DrawText("Bombard " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, 0, 0);
       DrawText("X: " + camera.Position.X + " Y: " + camera.Position.Y + " Z: " + camera.Position.Z, 0, 10);
-      DrawText("X: " + device.Transform.View.M11 + " Y: " + device.Transform.View.M22, 0, 20);     
+      DrawText("X: " + device.Transform.View.M11 + " Y: " + device.Transform.View.M22, 0, 20);
     }
 
-    private void DrawText(string message, int x, int y)
-    {
+    private void DrawText(string message, int x, int y) {
       font.DrawText(null, message, new Rectangle(x, y, viewingArea.Width / 2, viewingArea.Height / 2), DrawTextFormat.NoClip | DrawTextFormat.ExpandTabs | DrawTextFormat.WordBreak, Color.White);
     }
 
     /// <summary>
     /// Override the containing controls events and handle them inside the engine
     /// </summary>
-    private void CaptureEvents()
-    {
+    private void CaptureEvents() {
       System.Windows.Forms.Control control = System.Windows.Forms.Control.FromHandle(handle);
       control.MouseMove += new System.Windows.Forms.MouseEventHandler(control_MouseMove);
       control.MouseDown += new System.Windows.Forms.MouseEventHandler(control_MouseDown);
       control.MouseUp += new System.Windows.Forms.MouseEventHandler(control_MouseUp);
     }
 
-    void control_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
-    {
+    void control_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e) {
       rightMouse = false;
     }
 
-    void control_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-    {
+    void control_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
       rightMouse = true;
     }
 
-    void control_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
-    {
+    void control_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e) {
       /*Ray r = camera.ScreenToWorldCoordinates(new PointF(e.X, e.Y));
       Ray mousePos = camera.TranslateToCameraPlain(r);
       Vector3 v = new Vector3(mousePos.Direction.X, mousePos.Direction.Y, mousePos.Direction.Z);
       mousePointer.Translate(v);*/
-      if (rightMouse)      
-      {
+      if (rightMouse) {
         float x = 0.05f;
         float y = 0.05f;
         double centerX = viewingArea.Width / 2;
@@ -157,7 +141,7 @@ namespace BombardEngine
         camera.Fly(y);
         // camera.MoveCamera(e.X, e.Y);
       }
-    }    
+    }
 
     #endregion
   }
